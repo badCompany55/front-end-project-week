@@ -30,12 +30,34 @@ class App extends Component {
     this.setState(newNotes);
   };
 
+  deleteNote = id => {
+    let newNotes = {...this.state};
+    axios
+      .delete(`https://fe-notes.herokuapp.com/note/delete/${id}`)
+      .then(res => {
+        console.log(res);
+        let secondNewNotes = newNotes.notes.filter(note => {
+          return note._id !== id;
+        });
+        this.setState({notes: secondNewNotes});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div className="App">
         <Route
           path="/"
-          render={props => <NoteList {...props} notes={this.state.notes} />}
+          render={props => (
+            <NoteList
+              {...props}
+              notes={this.state.notes}
+              delete={this.deleteNote}
+            />
+          )}
         />
         <Route
           path="/new"

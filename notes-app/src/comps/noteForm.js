@@ -24,7 +24,8 @@ class Form extends React.Component {
       .post('https://fe-notes.herokuapp.com/note/create', newNote)
       .then(res => {
         console.log(res);
-        newNote.id = res.data.success;
+        newNote._id = res.data.success;
+        console.log(newNote);
         this.props.updateState(newNote);
       })
       .catch(err => {
