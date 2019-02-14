@@ -12,6 +12,19 @@ class Form extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.location.pathname.includes("edit")) {
+      let note = this.props.newState.notes.find(n => {
+        return n._id === this.props.match.params.id;
+      });
+      this.setState({
+        tags: note.tags,
+        title: note.title,
+        textBody: note.textBody
+      });
+    }
+  }
+
   capInput = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -31,7 +44,7 @@ class Form extends React.Component {
         .catch(err => {
           console.log(err);
         });
-      this.setState({ tags: [], title: "", content: "" });
+      this.setState({ tags: [], title: "", textBody: "" });
     } else {
       axios
         .put(
@@ -57,7 +70,7 @@ class Form extends React.Component {
         .catch(err => {
           console.log(err);
         });
-      this.setState({ tags: [], title: "", content: "" });
+      this.setState({ tags: [], title: "", textBody: "" });
     }
   };
 
@@ -85,7 +98,7 @@ class Form extends React.Component {
               name="content"
               cols="30"
               rows="10"
-              value={this.state.content}
+              value={this.state.textBody}
               onChange={this.capInput}
             />
           </div>
