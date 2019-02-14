@@ -65,7 +65,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route path="/" component={Navigation} />
+        <div className="container">
+          <Route path="/" component={Navigation} />
+        </div>
+        <div className="spacer" />
         <Route
           path="/notes"
           render={props => (
@@ -80,7 +83,7 @@ class App extends Component {
           )}
         />
         <Route
-          path="/new"
+          path="/notes/new"
           render={props => <Form {...props} updateState={this.updateState} />}
         />
         <Route

@@ -2,7 +2,9 @@ import React from "react";
 
 const DeleteConf = props => {
   const returnNotes = () => {
-    props.history.push("/notes");
+    if (props.location.pathname !== "/notes") {
+      props.history.push("/notes");
+    }
   };
   const noteDeleteMeth = () => {
     props.noteDelete();

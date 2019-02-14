@@ -1,0 +1,37 @@
+.container {
+	position: fixed;
+	display: flex;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+	background-color: $dPurple;
+
+	.navCont {
+		width: 150px;
+
+		.navbar {
+			display: flex;
+			flex-wrap:  wrap;
+
+			a {
+				width: 100%;
+				padding: 15px 0px;
+				text-decoration: none;
+				color: white;
+				font-size: 1.3rem;
+			}
+		}
+	}
+
+	
+	
+}
+
+.spacer {
+	width: 180px;
+	min-width: 180px;
+	height: 100vh;
+}
+
+	

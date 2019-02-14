@@ -1,5 +1,13 @@
+@import "./styles/vars.scss";
+@import  "./styles/nav.scss";
+@import  "./styles/noteList.scss";
+
 .App {
-  text-align: center;
+	background-color: $lPurple;
+	display: flex;
+	width: 90%;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 .hidden {

@@ -11,7 +11,7 @@ const Navigation = () => {
         <Link to="/notes">
           <div className="allNotes">NOTES</div>
         </Link>
-        <Link to="/new">
+        <Link to="/notes/new">
           <div className="newNote">NEW NOTE</div>
         </Link>
       </nav>
