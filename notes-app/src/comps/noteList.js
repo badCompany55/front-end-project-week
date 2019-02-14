@@ -21,7 +21,11 @@ const NoteList = props => {
         );
       })}
 
-      <DeleteConf noteDelete={props.noteDelete} modal={props.modal} />
+      <DeleteConf
+        noteDelete={props.noteDelete}
+        modal={props.modal}
+        resetModal={props.resetModal}
+      />
     </div>
   );
 };

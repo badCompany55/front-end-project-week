@@ -74,9 +74,14 @@ class Form extends React.Component {
     }
   };
 
+  closeForm = () => {
+    this.props.history.push("/notes");
+  };
+
   render() {
     return (
       <div className="formCont">
+        <i className="fas fa-window-close" onClick={this.closeForm} />
         <form className="noteForm" onSubmit={this.subHandle}>
           <div className="titleCont">
             <label className="title" htmlFor="title">

@@ -58,6 +58,10 @@ class App extends Component {
     this.setState({ deletebox: true, deleteItem: id });
   };
 
+  resetModal = () => {
+    this.setState({ deletebox: false, deleteItem: "" });
+  };
+
   render() {
     return (
       <div className="App">
@@ -71,6 +75,7 @@ class App extends Component {
               stateId={this.setStateId}
               noteDelete={this.deleteNote}
               modal={this.state.deletebox}
+              resetModal={this.resetModal}
             />
           )}
         />
@@ -79,7 +84,7 @@ class App extends Component {
           render={props => <Form {...props} updateState={this.updateState} />}
         />
         <Route
-          path="/edit/:id"
+          path="/notes/edit/:id"
           render={props => (
             <Form {...props} newState={this.state} editState={this.editState} />
           )}
@@ -90,8 +95,10 @@ class App extends Component {
             <SelectedNote
               {...props}
               notes={this.state.notes}
-              delete={this.deleteNote}
-              noteId={this.state.deleteItem}
+              stateId={this.setStateId}
+              noteDelete={this.deleteNote}
+              modal={this.state.deletebox}
+              resetModal={this.resetModal}
             />
           )}
         />

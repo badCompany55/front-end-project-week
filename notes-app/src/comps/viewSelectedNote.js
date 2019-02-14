@@ -1,25 +1,33 @@
-import React from 'react'
-import Note from './note.js'
+import React from "react";
+import Note from "./note.js";
+import DeleteConf from "./deleteConf.js";
 
 const SelectedNote = props => {
-	let theNote = props.notes.find(note => {
-		console.log(typeof note._id)
-		console.log(typeof props.match.params.id)
-		return note._id === props.match.params.id
-	})
-	console.log(theNote)
+  let theNote = props.notes.find(note => {
+    return note._id === props.match.params.id;
+  });
 
-	return (
-		<div className="singNoteCont">
-			<Note
-				key={theNote._id}
-				id={theNote._id}
-				noteName={theNote.title}
-				noteContent={theNote.textBody}
-				noteDelete={props.delete}
-				/>
-			</div>
-		); 
-}
+  const idPass = target => {
+    props.stateId(target);
+  };
 
-export default SelectedNote
+  return (
+    <div className="singNoteCont">
+      <Note
+        key={theNote._id}
+        id={theNote._id}
+        noteName={theNote.title}
+        noteContent={theNote.textBody}
+        etarget={idPass}
+      />
+      <DeleteConf
+        {...props}
+        noteDelete={props.noteDelete}
+        modal={props.modal}
+        resetModal={props.resetModal}
+      />
+    </div>
+  );
+};
+
+export default SelectedNote;

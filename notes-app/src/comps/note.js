@@ -7,7 +7,7 @@ const Note = props => {
   };
   return (
     <div className="noteCont">
-      <Link to={`/edit/${props.id}`}>
+      <Link to={`/notes/edit/${props.id}`}>
         <i className="fas fa-edit" />
       </Link>
       <i className="fas fa-trash-alt" id={props.id} onClick={target} />
