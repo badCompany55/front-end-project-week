@@ -1,7 +1,12 @@
-import React from 'react';
-import Note from './note.js';
+import React from "react";
+import Note from "./note.js";
+import DeleteConf from "./deleteConf.js";
 
 const NoteList = props => {
+  const idPass = target => {
+    props.stateId(target);
+  };
+
   return (
     <div className="listCont">
       {props.notes.map(note => {
@@ -11,10 +16,12 @@ const NoteList = props => {
             id={note._id}
             noteName={note.title}
             noteContent={note.textBody}
-            noteDelete={props.delete}
+            etarget={idPass}
           />
         );
       })}
+
+      <DeleteConf noteDelete={props.noteDelete} modal={props.modal} />
     </div>
   );
 };

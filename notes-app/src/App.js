@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import axios from "axios";
 import { Route } from "react-router-dom";
 import NoteList from "./comps/noteList.js";
@@ -11,7 +11,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: []
+      notes: [],
+      deletebox: false,
+      deleteItem: ""
     };
   }
 
@@ -36,7 +38,8 @@ class App extends Component {
     this.setState({ notes: notes });
   };
 
-  deleteNote = id => {
+  deleteNote = () => {
+    const id = this.state.deleteItem;
     let newNotes = { ...this.state };
     axios
       .delete(`https://fe-notes.herokuapp.com/note/delete/${id}`)
@@ -51,18 +54,23 @@ class App extends Component {
       });
   };
 
+  setStateId = id => {
+    this.setState({ deletebox: true, deleteItem: id });
+  };
+
   render() {
     return (
       <div className="App">
         <Route path="/" component={Navigation} />
         <Route
-          exact
           path="/notes"
           render={props => (
             <NoteList
               {...props}
               notes={this.state.notes}
-              delete={this.deleteNote}
+              stateId={this.setStateId}
+              noteDelete={this.deleteNote}
+              modal={this.state.deletebox}
             />
           )}
         />
@@ -83,6 +91,7 @@ class App extends Component {
               {...props}
               notes={this.state.notes}
               delete={this.deleteNote}
+              noteId={this.state.deleteItem}
             />
           )}
         />
