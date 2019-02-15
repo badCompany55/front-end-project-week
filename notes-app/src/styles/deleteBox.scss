@@ -1,0 +1,55 @@
+.deleteBox {
+	position: fixed;
+	top: 20%;
+	display: flex;
+	width: 87%;
+	max-width: 800px;
+	justify-content: center;
+
+	.deleteCont {
+		width: 50%;
+		background-color: $pink;
+
+		.message {
+			text-align: center;
+			color: white;
+			font-size: 2rem;
+			padding-bottom: 8px;
+				
+		}
+
+		.buttons {
+			text-align: center;
+
+			.yes {
+				background-color: white;
+				border: 3px solid $lPurple;
+				padding-left: 15px;
+				padding-right: 15px;
+				margin: 10px;
+				font-size: 1.3rem;
+
+				&:hover {
+					background-color: $dGreen;
+					color: red;
+					font-weight: bold;
+				}
+			}
+
+			.no {
+				background-color: white;
+				border: 3px solid $lPurple;
+				padding-left: 15px;
+				padding-right: 15px;
+				margin: 10px;
+				font-size: 1.3rem;
+
+				&:hover {
+					background-color: $dGreen;
+					color: red;
+					font-weight: bold;
+				}
+			}
+		}
+	}	
+}

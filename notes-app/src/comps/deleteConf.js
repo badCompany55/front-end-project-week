@@ -15,12 +15,14 @@ const DeleteConf = props => {
   return (
     <div className={props.modal === false ? "deleteCont hidden" : "deleteCont"}>
       <div className="message">Are you sure you want to delete?</div>
-      <button className="yes" onClick={noteDeleteMeth}>
-        YES
-      </button>
-      <button className="no" onClick={props.resetModal}>
-        NO
-      </button>
+      <div className="buttons">
+        <button className="yes" onClick={noteDeleteMeth}>
+          YES
+        </button>
+        <button className="no" onClick={props.resetModal}>
+          NO
+        </button>
+      </div>
     </div>
   );
 };

@@ -20,13 +20,14 @@ const NoteList = props => {
           />
         );
       })}
-
-      <DeleteConf
-        {...props}
-        noteDelete={props.noteDelete}
-        modal={props.modal}
-        resetModal={props.resetModal}
-      />
+      <div className="deleteBox">
+        <DeleteConf
+          {...props}
+          noteDelete={props.noteDelete}
+          modal={props.modal}
+          resetModal={props.resetModal}
+        />
+      </div>
     </div>
   );
 };

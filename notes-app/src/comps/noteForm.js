@@ -81,34 +81,40 @@ class Form extends React.Component {
   render() {
     return (
       <div className="formCont">
-        <i className="fas fa-window-close" onClick={this.closeForm} />
-        <form className="noteForm" onSubmit={this.subHandle}>
-          <div className="titleCont">
-            <label className="title" htmlFor="title">
-              Title:{" "}
-            </label>
-            <input
-              id="title"
-              type="text"
-              value={this.state.title}
-              onChange={this.capInput}
-            />
+        <div className="form">
+          <div className="closeCont">
+            <i className="fas fa-window-close" onClick={this.closeForm} />
           </div>
-          <div className="contentCont">
-            <label className="content" htmlFor="content">
-              Content:{" "}
-            </label>
-            <textarea
-              id="textBody"
-              name="content"
-              cols="30"
-              rows="10"
-              value={this.state.textBody}
-              onChange={this.capInput}
-            />
-          </div>
-          <button>Add</button>
-        </form>
+          <form className="noteForm" onSubmit={this.subHandle}>
+            <div className="titleCont">
+              <label className="title" htmlFor="title">
+                Title:{" "}
+              </label>
+              <input
+                id="title"
+                type="text"
+                value={this.state.title}
+                onChange={this.capInput}
+              />
+            </div>
+            <div className="contentCont">
+              <label className="content" htmlFor="content">
+                Content:{" "}
+              </label>
+              <textarea
+                id="textBody"
+                name="content"
+                cols="30"
+                rows="20"
+                value={this.state.textBody}
+                onChange={this.capInput}
+              />
+            </div>
+            <div className="button">
+              <button>Add</button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

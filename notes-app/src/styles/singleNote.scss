@@ -28,6 +28,11 @@
 			.fa-trash-alt {
 				padding-left: 10px;
 				color: $pink;
+
+				&:hover {
+					cursor: pointer;
+				}
+				
 			}
 		}
 
