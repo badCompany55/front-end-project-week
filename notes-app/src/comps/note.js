@@ -7,10 +7,12 @@ const Note = props => {
   };
   return (
     <div className="noteCont">
-      <Link to={`/notes/edit/${props.id}`}>
-        <i className="fas fa-edit" />
-      </Link>
-      <i className="fas fa-trash-alt" id={props.id} onClick={target} />
+      <div className="editDelete">
+        <Link to={`/notes/edit/${props.id}`}>
+          <i className="fas fa-edit" />
+        </Link>
+        <i className="fas fa-trash-alt" id={props.id} onClick={target} />
+      </div>
       <Link to={`/note/${props.id}`}>
         <h1 className="noteName">{props.noteName}</h1>
       </Link>
