@@ -15,7 +15,9 @@ class App extends Component {
       notes: [],
       deletebox: false,
       deleteItem: "",
-      errorMsg: null
+      errorMsg: null,
+      results: [],
+      currentResult: ""
     };
   }
 
@@ -68,6 +70,19 @@ class App extends Component {
     this.setState({ errorMsg: msg });
   };
 
+  updateResults = res => {
+    this.setState({ results: res });
+  };
+
+  updateCurrentRes = res => {
+    this.setState({ currentResult: res });
+  };
+
+  setLocation = () => {
+    this.setState({ currentResult: this.state.results[0] });
+    window.location.hash = this.state.results[0];
+  };
+
   render() {
     return (
       <div className="App">
@@ -80,7 +95,18 @@ class App extends Component {
           />
         ) : null}
         <div className="container">
-          <Route path="/" component={Navigation} />
+          <Route
+            path="/"
+            render={props => (
+              <Navigation
+                notes={this.state.notes}
+                results={this.state.results}
+                setResults={this.updateResults}
+                search={this.setLocation}
+                currentRes={this.updateCurrentRes}
+              />
+            )}
+          />
         </div>
         <div className="spacer" />
         <Route
@@ -93,6 +119,7 @@ class App extends Component {
               noteDelete={this.deleteNote}
               modal={this.state.deletebox}
               resetModal={this.resetModal}
+              currentResult={this.state.currentResult}
             />
           )}
         />
@@ -109,7 +136,12 @@ class App extends Component {
         <Route
           path="/notes/edit/:id"
           render={props => (
-            <Form {...props} newState={this.state} editState={this.editState} />
+            <Form
+              {...props}
+              newState={this.state}
+              editState={this.editState}
+              updateError={this.updateError}
+            />
           )}
         />
         <Route

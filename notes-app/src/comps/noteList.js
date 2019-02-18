@@ -9,7 +9,7 @@ const NoteList = props => {
 
   return (
     <div className="listCont">
-      {props.notes.map(note => {
+      {props.notes.map((note, index) => {
         return (
           <Note
             key={note._id}
@@ -17,6 +17,8 @@ const NoteList = props => {
             noteName={note.title}
             noteContent={note.textBody}
             etarget={idPass}
+            currentResult={props.currentResult}
+						index={index}
           />
         );
       })}

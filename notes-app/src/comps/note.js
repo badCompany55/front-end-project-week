@@ -5,6 +5,7 @@ const Note = props => {
   const target = e => {
     props.etarget(e.target.id);
   };
+
   return (
     <div className="noteCont">
       <div className="editDelete">
@@ -14,7 +15,18 @@ const Note = props => {
         <i className="fas fa-trash-alt" id={props.id} onClick={target} />
       </div>
       <Link to={`/note/${props.id}`}>
-        <h1 className="noteName">{props.noteName}</h1>
+        <h1 className="noteName">
+          <a
+            className={
+              props.currentResult === props.noteName + props.index
+                ? "highlight"
+                : "no-highlight"
+            }
+            id={props.noteName + props.index}
+          >
+            {props.noteName}
+          </a>
+        </h1>
       </Link>
       <p className="noteContent">{props.noteContent}</p>
     </div>
