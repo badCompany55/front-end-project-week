@@ -5,6 +5,7 @@
 @import  "./styles/form.scss";
 @import  "./styles/deleteBox.scss";
 @import  "./styles/error.scss";
+@import "./styles/search.scss";
 
 .App {
 	background-color: $lPurple;
@@ -24,6 +25,6 @@
 
 .highlight {
 	background-color: $lGreen;
-	padding: 7px 25px; 
+	padding: 1px;
 	border-radius: 5px;
 }

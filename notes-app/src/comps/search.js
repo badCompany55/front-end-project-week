@@ -33,7 +33,6 @@ class Search extends React.Component {
       counter = 0;
     }
     window.location.hash = this.props.results[counter];
-    console.log(this.props.results[counter]);
     counter++;
     this.setState({ counter: counter });
     this.props.currentRes(this.props.results[counter - 1]);
@@ -46,13 +45,13 @@ class Search extends React.Component {
           Search
         </label>
         <input className="searchInput" type="text" onChange={this.capInput} />
-        <button className="seachButt" onClick={this.search}>
+        <button className="seachButt searchButtons" onClick={this.search}>
           Search
         </button>
-        <button className="next" onClick={this.cycleSearch}>
+        <button className="next searchButtons" onClick={this.cycleSearch}>
           Next
         </button>
-        <button className="clear">Clear</button>
+        <button className="clear searchButtons">Clear</button>
       </div>
     );
   }
