@@ -32,18 +32,23 @@ class Form extends React.Component {
   subHandle = e => {
     e.preventDefault();
     if (this.props.location.pathname.includes("new")) {
-      const newNote = { ...this.state };
-      axios
-        .post("https://fe-notes.herokuapp.com/note/create", newNote)
-        .then(res => {
-          console.log(res);
-          newNote._id = res.data.success;
-          console.log(newNote);
-          this.props.updateState(newNote);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.state.title !== "" && this.state.textBody !== "") {
+        const newNote = { ...this.state };
+        axios
+          .post("https://fe-notes.herokuapp.com/note/create", newNote)
+          .then(res => {
+            console.log(res);
+            newNote._id = res.data.success;
+            console.log(newNote);
+            this.props.updateState(newNote);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        const errMsg = "Title and Body are Required";
+        this.props.updateError(errMsg);
+      }
       this.setState({ tags: [], title: "", textBody: "" });
     } else {
       axios
@@ -75,6 +80,7 @@ class Form extends React.Component {
   };
 
   closeForm = () => {
+    this.props.updateError(null);
     this.props.history.push("/notes");
   };
 
@@ -111,7 +117,12 @@ class Form extends React.Component {
               />
             </div>
             <div className="button">
-              <button>Add</button>
+              {this.props.location.pathname.includes("new") ? (
+                <button>Add</button>
+              ) : (
+                <button>Submit</button>
+              )}
+              }
             </div>
           </form>
         </div>

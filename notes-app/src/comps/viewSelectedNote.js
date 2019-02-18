@@ -20,12 +20,14 @@ const SelectedNote = props => {
         noteContent={theNote.textBody}
         etarget={idPass}
       />
-      <DeleteConf
-        {...props}
-        noteDelete={props.noteDelete}
-        modal={props.modal}
-        resetModal={props.resetModal}
-      />
+      <div className="deleteBox">
+        <DeleteConf
+          {...props}
+          noteDelete={props.noteDelete}
+          modal={props.modal}
+          resetModal={props.resetModal}
+        />
+      </div>
     </div>
   );
 };

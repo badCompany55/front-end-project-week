@@ -6,6 +6,7 @@ import NoteList from "./comps/noteList.js";
 import Form from "./comps/noteForm.js";
 import SelectedNote from "./comps/viewSelectedNote.js";
 import Navigation from "./comps/nav.js";
+import ErrMsg from "./comps/error.js";
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
     this.state = {
       notes: [],
       deletebox: false,
-      deleteItem: ""
+      deleteItem: "",
+      errorMsg: null
     };
   }
 
@@ -24,14 +26,14 @@ class App extends Component {
         this.setState({ notes: res.data });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ errorMsg: err });
       });
   }
 
   updateState = note => {
     let newNotes = { ...this.state };
     newNotes.notes.push(note);
-    this.setState(newNotes);
+    this.setState({ notes: newNotes.notes, errorMsg: null });
   };
 
   editState = notes => {
@@ -50,7 +52,7 @@ class App extends Component {
         this.setState({ notes: secondNewNotes });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ errorMsg: err });
       });
   };
 
@@ -62,9 +64,21 @@ class App extends Component {
     this.setState({ deletebox: false, deleteItem: "" });
   };
 
+  updateError = msg => {
+    this.setState({ errorMsg: msg });
+  };
+
   render() {
     return (
       <div className="App">
+        {this.state.errorMsg ? (
+          <Route
+            path="/"
+            render={props => (
+              <ErrMsg {...props} errorMsg={this.state.errorMsg} />
+            )}
+          />
+        ) : null}
         <div className="container">
           <Route path="/" component={Navigation} />
         </div>
@@ -84,7 +98,13 @@ class App extends Component {
         />
         <Route
           path="/notes/new"
-          render={props => <Form {...props} updateState={this.updateState} />}
+          render={props => (
+            <Form
+              {...props}
+              updateState={this.updateState}
+              updateError={this.updateError}
+            />
+          )}
         />
         <Route
           path="/notes/edit/:id"
