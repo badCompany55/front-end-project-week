@@ -15,17 +15,14 @@ const Note = props => {
         <i className="fas fa-trash-alt" id={props.id} onClick={target} />
       </div>
       <Link to={`/note/${props.id}`}>
-        <h1 className="noteName">
-          <a
-            className={
-              props.currentResult === props.noteName + props.index
-                ? "highlight"
-                : "no-highlight"
-            }
-            id={props.noteName + props.index}
-          >
-            {props.noteName}
-          </a>
+        <h1
+          className={
+            props.currentResult === props.noteName + props.index
+              ? "noteName highlight"
+              : "noteName"
+          }
+        >
+          <a id={props.noteName + props.index}>{props.noteName}</a>
         </h1>
       </Link>
       <p className="noteContent">{props.noteContent}</p>

@@ -1,9 +1,19 @@
 .listCont {
+	margin-top: 25px;
 	width: 75%;
 	display: flex;
 	flex-wrap:  wrap;
 	align-items: flex-start;
 	justify-content: space-around;
+
+	.sorting {
+		display: flex;
+		flex-wrap:  wrap;
+		width: 100%;
+		font-size: 3rem;
+		justify-content: space-around;
+		padding-bottom: 25px;
+	}
 
 
 	.noteCont {

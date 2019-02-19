@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
       notes: [],
+      defaultNotes: [],
       deletebox: false,
       deleteItem: "",
       errorMsg: null,
@@ -26,7 +27,7 @@ class App extends Component {
     axios
       .get("https://fe-notes.herokuapp.com/note/get/all")
       .then(res => {
-        this.setState({ notes: res.data });
+        this.setState({ notes: res.data, defaultNotes: res.data });
       })
       .catch(err => {
         this.setState({ errorMsg: err });
@@ -36,11 +37,19 @@ class App extends Component {
   updateState = note => {
     let newNotes = { ...this.state };
     newNotes.notes.push(note);
-    this.setState({ notes: newNotes.notes, errorMsg: null });
+    this.setState({
+      notes: newNotes.notes,
+      defaultNotes: newNotes.notes,
+      errorMsg: null
+    });
+  };
+
+  sortState = notes => {
+    this.setState({ notes: notes });
   };
 
   editState = notes => {
-    this.setState({ notes: notes });
+    this.setState({ notes: notes, defaultNotes: notes });
   };
 
   deleteNote = () => {
@@ -52,7 +61,7 @@ class App extends Component {
         let secondNewNotes = newNotes.notes.filter(note => {
           return note._id !== id;
         });
-        this.setState({ notes: secondNewNotes });
+        this.setState({ notes: secondNewNotes, defaultNotes: secondNewNotes });
       })
       .catch(err => {
         this.setState({ errorMsg: err });
@@ -122,6 +131,8 @@ class App extends Component {
               modal={this.state.deletebox}
               resetModal={this.resetModal}
               currentResult={this.state.currentResult}
+              sortNotes={this.sortState}
+              originalState={this.state.defaultNotes}
             />
           )}
         />
