@@ -38,20 +38,33 @@ class Search extends React.Component {
     this.props.currentRes(this.props.results[counter - 1]);
   };
 
+  clearSearch = () => {
+    this.setState({ input: "" });
+    this.props.setResults(null);
+    this.props.currentRes(null);
+  };
+
   render() {
     return (
       <div className="searchCont">
         <label className="searchLabel" htmlFor="searchLabel">
           Search
         </label>
-        <input className="searchInput" type="text" onChange={this.capInput} />
+        <input
+          className="searchInput"
+          type="text"
+          value={this.state.input}
+          onChange={this.capInput}
+        />
         <button className="seachButt searchButtons" onClick={this.search}>
           Search
         </button>
         <button className="next searchButtons" onClick={this.cycleSearch}>
           Next
         </button>
-        <button className="clear searchButtons">Clear</button>
+        <button className="clear searchButtons" onClick={this.clearSearch}>
+          Clear
+        </button>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import Form from "./comps/noteForm.js";
 import SelectedNote from "./comps/viewSelectedNote.js";
 import Navigation from "./comps/nav.js";
 import ErrMsg from "./comps/error.js";
+import MyEditor from "./comps/editor.js";
 
 class App extends Component {
   constructor(props) {
@@ -110,6 +111,7 @@ class App extends Component {
         </div>
         <div className="spacer" />
         <Route
+          exact
           path="/notes"
           render={props => (
             <NoteList
