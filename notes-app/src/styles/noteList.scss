@@ -13,6 +13,15 @@
 		font-size: 3rem;
 		justify-content: space-around;
 		padding-bottom: 25px;
+
+		.fas {
+			color: $gray;
+
+			&:hover {
+			color:	$dGreen;
+			cursor: pointer;
+			}
+		}
 	}
 
 
@@ -26,6 +35,10 @@
 		background-color: #EBDFE9;
 		border-radius: 5px;
 		overflow: hidden;
+
+		&:hover {
+			border: 4px solid $lPurple;
+		}
 
 		.editDelete {
 			text-align: right;

@@ -74,7 +74,7 @@ const NoteList = props => {
   };
 
   const theDefault = () => {
-    props.sortNotes(props.originalState);
+    props.refresh();
   };
 
   return (

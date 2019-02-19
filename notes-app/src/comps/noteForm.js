@@ -122,7 +122,6 @@ class Form extends React.Component {
               ) : (
                 <button>Submit</button>
               )}
-              }
             </div>
           </form>
         </div>

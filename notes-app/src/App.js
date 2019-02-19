@@ -7,14 +7,12 @@ import Form from "./comps/noteForm.js";
 import SelectedNote from "./comps/viewSelectedNote.js";
 import Navigation from "./comps/nav.js";
 import ErrMsg from "./comps/error.js";
-import MyEditor from "./comps/editor.js";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
-      defaultNotes: [],
       deletebox: false,
       deleteItem: "",
       errorMsg: null,
@@ -33,6 +31,17 @@ class App extends Component {
         this.setState({ errorMsg: err });
       });
   }
+
+  refreshNotes = () => {
+    axios
+      .get("https://fe-notes.herokuapp.com/note/get/all")
+      .then(res => {
+        this.setState({ notes: res.data, defaultNotes: res.data });
+      })
+      .catch(err => {
+        this.setState({ errorMsg: err });
+      });
+  };
 
   updateState = note => {
     let newNotes = { ...this.state };
@@ -132,7 +141,7 @@ class App extends Component {
               resetModal={this.resetModal}
               currentResult={this.state.currentResult}
               sortNotes={this.sortState}
-              originalState={this.state.defaultNotes}
+              refresh={this.refreshNotes}
             />
           )}
         />
