@@ -19,6 +19,7 @@
     "prosemirror-state": "^1.2.2",
     "prosemirror-view": "^1.7.1",
     "react": "^16.8.2",
+    "react-beautiful-dnd": "^10.0.4",
     "react-dom": "^16.8.2",
     "react-prosemirror": "^0.2.1",
     "react-router-dom": "^4.3.1",

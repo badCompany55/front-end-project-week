@@ -1,6 +1,7 @@
 import React from "react";
 import Note from "./note.js";
 import DeleteConf from "./deleteConf.js";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const NoteList = props => {
   const idPass = target => {
@@ -77,6 +78,25 @@ const NoteList = props => {
     props.refresh();
   };
 
+  const onDragEnd = result => {
+    let notes = props.notes;
+    let movedNote = notes.slice(result.source.index, result.source.index + 1);
+    let workingNotes = notes.filter(note => {
+      if (note._id !== movedNote[0]._id) {
+        return note;
+      }
+    });
+    let newNotes = [
+      ...workingNotes.slice(0, result.destination.index),
+      movedNote[0],
+      ...workingNotes.slice(result.destination.index)
+    ];
+    // console.log("working:", workingNotes);
+    // console.log(notes.length, workingNotes.length);
+    // console.log("new:", newNotes);
+    props.sortState(newNotes);
+  };
+
   return (
     <div className="listCont">
       <div className="sorting">
@@ -84,19 +104,41 @@ const NoteList = props => {
         <i className="fas fa-home" onClick={theDefault} />
         <i className="fas fa-arrow-circle-down" onClick={sortDescend} />
       </div>
-      {props.notes.map((note, index) => {
-        return (
-          <Note
-            key={note._id}
-            id={note._id}
-            noteName={note.title}
-            noteContent={note.textBody}
-            etarget={idPass}
-            currentResult={props.currentResult}
-            index={index}
-          />
-        );
-      })}
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {provided => (
+            <div ref={provided.innerRef}>
+              {props.notes.map((note, index) => {
+                return (
+                  <Draggable
+                    key={note._id}
+                    draggableId={note._id}
+                    index={index}
+                  >
+                    {provided => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Note
+                          key={note._id}
+                          id={note._id}
+                          noteName={note.title}
+                          noteContent={note.textBody}
+                          etarget={idPass}
+                          currentResult={props.currentResult}
+                          index={index}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              })}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <div className="deleteBox">
         <DeleteConf
           {...props}

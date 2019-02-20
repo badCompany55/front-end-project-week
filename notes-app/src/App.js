@@ -142,6 +142,8 @@ class App extends Component {
               currentResult={this.state.currentResult}
               sortNotes={this.sortState}
               refresh={this.refreshNotes}
+              onDragEnd={this.onDragEnd}
+							sortState={this.sortState}
             />
           )}
         />
