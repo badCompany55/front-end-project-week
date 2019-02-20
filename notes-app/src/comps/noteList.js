@@ -107,7 +107,7 @@ const NoteList = props => {
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {provided => (
-            <div ref={provided.innerRef}>
+            <div className="droppableCont" ref={provided.innerRef}>
               {props.notes.map((note, index) => {
                 return (
                   <Draggable

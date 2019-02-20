@@ -1,11 +1,12 @@
 .errMsg {
 	position: fixed;
 	display: flex;
+	flex-wrap:  wrap;
 	width: 100%;
 	max-width: 850px;
-	margin-left: 7%;
-	top: 15%;
-	justify-content: center;
+	margin-left: 260px;
+	top: 21%;
+	justify-content: space-between;
 
 	.msg {
 		background: red;

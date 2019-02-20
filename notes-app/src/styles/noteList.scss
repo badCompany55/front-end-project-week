@@ -1,6 +1,6 @@
 .listCont {
 	margin-top: 25px;
-	width: 75%;
+	width: 100%;
 	display: flex;
 	flex-wrap:  wrap;
 	align-items: flex-start;
@@ -24,52 +24,53 @@
 		}
 	}
 
+	.droppableCont {
+		.noteCont {
+			width: 95%;
+			height: 300px;
+			margin-right: 12px;
+			margin-bottom: 12px;
+			padding: 10px;
+			border: 4px solid $pink;
+			background-color: #EBDFE9;
+			border-radius: 5px;
+			overflow: hidden;
 
-	.noteCont {
-		width: 25%;
-		height: 300px;
-		margin-right: 12px;
-		margin-bottom: 12px;
-		padding: 10px;
-		border: 4px solid $pink;
-		background-color: #EBDFE9;
-		border-radius: 5px;
-		overflow: hidden;
-
-		&:hover {
-			border: 4px solid $lPurple;
-		}
-
-		.editDelete {
-			text-align: right;
-
-			a {
-				color: $dGreen;
-				overflow: hidden;
+			&:hover {
+				border: 4px solid $lPurple;
 			}
 
-			.fa-trash-alt {
-				padding-left: 10px;
-				color: $pink;
+			.editDelete {
+				text-align: right;
 
-				&:hover {
-					cursor: pointer;
+				a {
+					color: $dGreen;
+					overflow: hidden;
+				}
+
+				.fa-trash-alt {
+					padding-left: 10px;
+					color: $pink;
+
+					&:hover {
+						cursor: pointer;
+					}
 				}
 			}
-		}
 
-		a {
-			text-decoration: none;
-			color: $pink;
+			a {
+				text-decoration: none;
+				color: $pink;
 
-			.noteName {
-				text-align: center;
-				overflow-wrap: break-word;
+				.noteName {
+					text-align: center;
+					overflow-wrap: break-word;
+				}
 			}
-		}
 
-		.noteContent {
-			overflow: hidden;
+			.noteContent {
+				overflow: hidden;
+			}
 		}
 	}
 }

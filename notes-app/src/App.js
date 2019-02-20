@@ -129,7 +129,6 @@ class App extends Component {
         </div>
         <div className="spacer" />
         <Route
-          exact
           path="/notes"
           render={props => (
             <NoteList
@@ -143,7 +142,7 @@ class App extends Component {
               sortNotes={this.sortState}
               refresh={this.refreshNotes}
               onDragEnd={this.onDragEnd}
-							sortState={this.sortState}
+              sortState={this.sortState}
             />
           )}
         />
