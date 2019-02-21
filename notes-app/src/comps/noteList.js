@@ -115,7 +115,7 @@ const NoteList = props => {
                     draggableId={note._id}
                     index={index}
                   >
-                    {provided => (
+                    {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
@@ -129,6 +129,7 @@ const NoteList = props => {
                           etarget={idPass}
                           currentResult={props.currentResult}
                           index={index}
+                          dragging={snapshot.isDragging}
                         />
                       </div>
                     )}

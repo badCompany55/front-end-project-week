@@ -7,7 +7,7 @@ const Note = props => {
   };
 
   return (
-    <div className="noteCont">
+    <div className={props.dragging ? "noteCont dragging" : "noteCont"}>
       <div className="editDelete">
         <Link to={`/notes/edit/${props.id}`}>
           <i className="fas fa-edit" />

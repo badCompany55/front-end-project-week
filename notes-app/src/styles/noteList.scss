@@ -26,9 +26,12 @@
 
 	.droppableCont {
 		width: 100%;
+
+		
+
 		.noteCont {
 			width: 95%;
-			height: 80px;
+			height: 100px;
 			margin-right: 12px;
 			margin-bottom: 12px;
 			padding: 0px 10px;
@@ -73,8 +76,20 @@
 
 			.noteContent {
 				overflow: hidden;
-				margin-top: 3px;
+				margin-bottom: 0px;
 			}
+		}
+
+		.dragging {
+			background-color: $dGreen;
+			
+			.editDelete {
+
+				a {
+					color: $white;
+				}
+			}
+			
 		}
 	}
 }
