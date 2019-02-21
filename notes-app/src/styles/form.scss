@@ -6,15 +6,18 @@
 	max-width: 990px;
 
 	.form {
-		width: 75%;	
+		width: 100%;	
 		margin-left: 180px;
+		padding-right: 30px;
 		background-color: $dPurple;
+		max-width: 778px;
 
 		.closeCont {
 			text-align: right;
 			
 			.fa-window-close {
 				padding: 10px;
+				padding-right: 0px;
 				font-size: 1.3rem;
 				color: $dGreen;
 
@@ -31,7 +34,7 @@
 			.titleCont {
 				width: 100%;
 				justify-content: space-between;
-				padding-left: 57px;
+				padding-left: 56px;
 				padding-bottom: 20px;
 				
 				.title {
@@ -61,11 +64,18 @@
 				#textBody {
 					width: 80%;
 				}
+
+
+				.rdw-editor-main {
+					background-color: $white;
+					height: 300px;
+				}
 			}
 
 			.button {
 				width: 100%;
 				display: flex;
+				padding-left: 30px;
 				justify-content: center;
 
 				button {

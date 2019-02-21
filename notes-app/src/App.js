@@ -8,12 +8,14 @@ import SelectedNote from "./comps/viewSelectedNote.js";
 import Navigation from "./comps/nav.js";
 import ErrMsg from "./comps/error.js";
 import Home from "./comps/home.js";
+import { EditorComponent } from "./comps/editor.js";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
+      htmlNotes: [],
       deletebox: false,
       deleteItem: "",
       errorMsg: null,
@@ -23,35 +25,89 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("https://fe-notes.herokuapp.com/note/get/all")
-      .then(res => {
-        this.setState({ notes: res.data, defaultNotes: res.data });
-      })
-      .catch(err => {
-        this.setState({ errorMsg: err });
-      });
+    // axios
+    //   .get("https://fe-notes.herokuapp.com/note/get/all")
+    //   .then(res => {
+    //     this.setState({ defaultNotes: res.data });
+    //     this.htmlFormat();
+    //   })
+    //   .catch(err => {
+    //     this.setState({ errorMsg: err });
+    //   });
+    // this.timeout();
+    // this.htmlFormat();
+    this.initialLoad();
   }
 
   refreshNotes = () => {
     axios
       .get("https://fe-notes.herokuapp.com/note/get/all")
       .then(res => {
-        this.setState({ notes: res.data, defaultNotes: res.data });
+        this.setState({ notes: res.data });
       })
       .catch(err => {
         this.setState({ errorMsg: err });
       });
   };
 
-  updateState = note => {
+  initialLoad = () => {
+    axios
+      .get("https://fe-notes.herokuapp.com/note/get/all")
+      .then(res => {
+        // this.setState({ defaultNotes: res.data });
+        const raw = res.data;
+        const html = this.state.htmlNotes.slice();
+        let combinedCheck = [];
+        raw.forEach(note => {
+          if (html.length > 0) {
+            html.forEach(htmlNote => {
+              if (note._id === htmlNote._id) {
+                combinedCheck.push(htmlNote);
+              }
+            });
+          } else {
+            combinedCheck.push(note);
+          }
+        });
+        console.log(combinedCheck);
+        this.setState({ notes: combinedCheck });
+      })
+      .catch(err => {
+        this.setState({ errorMsg: err });
+      });
+  };
+
+  htmlFormatCheck = () => {
+    const raw = this.state.notes.slice();
+    const html = this.state.htmlNotes.slice();
+    let combinedCheck = [];
+    raw.forEach(note => {
+      if (html.length > 0) {
+        html.forEach(htmlNote => {
+          if (note._id === htmlNote._id) {
+            combinedCheck.push(htmlNote);
+          } else {
+            combinedCheck.push(note);
+          }
+        });
+      } else {
+        combinedCheck.push(note);
+      }
+    });
+    console.log(combinedCheck);
+    this.setState({ notes: combinedCheck });
+  };
+
+  updateState = (note, htmlNote) => {
     let newNotes = { ...this.state };
     newNotes.notes.push(note);
+    newNotes.htmlNotes.push(htmlNote);
     this.setState({
       notes: newNotes.notes,
-      defaultNotes: newNotes.notes,
+      htmlNotes: newNotes.htmlNotes,
       errorMsg: null
     });
+    this.htmlFormatCheck();
   };
 
   sortState = notes => {
@@ -59,7 +115,7 @@ class App extends Component {
   };
 
   editState = notes => {
-    this.setState({ notes: notes, defaultNotes: notes });
+    this.setState({ notes: notes });
   };
 
   deleteNote = () => {
@@ -159,7 +215,7 @@ class App extends Component {
           )}
         />
         <Route
-          path="/notes/edit/:id"
+          path="/note/:id/edit"
           render={props => (
             <Form
               {...props}
@@ -182,6 +238,7 @@ class App extends Component {
             />
           )}
         />
+        <Route path="/editor" component={EditorComponent} />
       </div>
     );
   }

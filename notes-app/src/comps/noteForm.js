@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { EditorComponent } from "./editor.js";
 
 class Form extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class Form extends React.Component {
     this.state = {
       tags: [],
       title: "",
-      textBody: ""
+      textBody: "",
+      html: ""
     };
   }
 
@@ -29,18 +31,32 @@ class Form extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  setInput = (text, html) => {
+    this.setState({ textBody: text, html: html });
+  };
+
   subHandle = e => {
     e.preventDefault();
     if (this.props.location.pathname.includes("new")) {
       if (this.state.title !== "" && this.state.textBody !== "") {
-        const newNote = { ...this.state };
+        const newNote = {
+          tags: this.state.tags,
+          title: this.state.title,
+          textBody: this.state.textBody
+        };
+        const htmlNewNote = {
+          tags: this.state.tags,
+          title: this.state.title,
+          textBody: this.state.html
+        };
         axios
           .post("https://fe-notes.herokuapp.com/note/create", newNote)
           .then(res => {
             console.log(res);
             newNote._id = res.data.success;
-            console.log(newNote);
-            this.props.updateState(newNote);
+            htmlNewNote._id = res.data.success;
+            this.props.updateState(newNote, htmlNewNote);
+            this.props.history.push("/notes");
           })
           .catch(err => {
             console.log(err);
@@ -104,17 +120,18 @@ class Form extends React.Component {
               />
             </div>
             <div className="contentCont">
-              <label className="content" htmlFor="content">
-                Content:{" "}
-              </label>
-              <textarea
-                id="textBody"
-                name="content"
-                cols="30"
-                rows="20"
-                value={this.state.textBody}
-                onChange={this.capInput}
-              />
+              {/* <label className="content" htmlFor="content"> */}
+              {/*   Content:{" "} */}
+              {/* </label> */}
+              <EditorComponent setInput={this.setInput} />
+              {/* <textarea */}
+              {/*   id="textBody" */}
+              {/*   name="content" */}
+              {/*   cols="30" */}
+              {/*   rows="20" */}
+              {/*   value={this.state.textBody} */}
+              {/*   onChange={this.capInput} */}
+              {/* /> */}
             </div>
             <div className="button">
               {this.props.location.pathname.includes("new") ? (

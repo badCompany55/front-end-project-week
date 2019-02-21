@@ -9,7 +9,7 @@ const Note = props => {
   return (
     <div className={props.dragging ? "noteCont dragging" : "noteCont"}>
       <div className="editDelete">
-        <Link to={`/notes/edit/${props.id}`}>
+        <Link to={`/note/${props.id}/edit`}>
           <i className="fas fa-edit" />
         </Link>
         <i className="fas fa-trash-alt" id={props.id} onClick={target} />
@@ -25,7 +25,10 @@ const Note = props => {
           <a id={props.noteName + props.index}>{props.noteName}</a>
         </h1>
       </Link>
-      <p className="noteContent">{props.noteContent}</p>
+      <div
+        className="noteContent"
+        dangerouslySetInnerHTML={{ __html: props.noteContent }}
+      />
     </div>
   );
 };
