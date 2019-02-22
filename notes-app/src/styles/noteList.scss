@@ -42,6 +42,9 @@
 
 			&:hover {
 				border: 4px solid $lPurple;
+				overflow: none;
+				min-height: 100px;
+				height: inherit;
 			}
 
 			.editDelete {

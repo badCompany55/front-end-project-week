@@ -69,7 +69,6 @@ class App extends Component {
             combinedCheck.push(note);
           }
         });
-        console.log(combinedCheck);
         this.setState({ notes: combinedCheck });
       })
       .catch(err => {
@@ -114,8 +113,10 @@ class App extends Component {
     this.setState({ notes: notes });
   };
 
-  editState = notes => {
-    this.setState({ notes: notes });
+  editState = (notes, htmlNotes) => {
+    this.setState({ notes: notes, htmlNotes: htmlNotes });
+    console.log(this.state.htmlNotes);
+    this.htmlFormatCheck();
   };
 
   deleteNote = () => {

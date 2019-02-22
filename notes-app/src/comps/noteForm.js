@@ -80,13 +80,31 @@ class Form extends React.Component {
         )
         .then(res => {
           let state = { ...this.props.newState };
-          state = state.notes.map(note => {
+          let notes = state.notes.map(note => {
             if (note._id === res.data._id) {
               note = res.data;
             }
             return note;
           });
-          this.props.editState(state);
+          let htmlNotes = [];
+          if (state.htmlNotes.length > 0) {
+            state.htmlNotes.forEach(note => {
+              if (note._id === res.data._id) {
+                note = res.data;
+                note.textBody = this.state.html;
+                htmlNotes.push(note);
+              } else {
+                let newNote = res.data;
+                newNote.textBody = this.state.html;
+                htmlNotes.push(newNote);
+              }
+            });
+          } else {
+            let newNote = res.data;
+            newNote.textBody = this.state.html;
+            htmlNotes.push(newNote);
+          }
+          this.props.editState(notes, htmlNotes);
         })
         .catch(err => {
           console.log(err);

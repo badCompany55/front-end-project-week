@@ -30,9 +30,6 @@ export class EditorComponent extends React.Component {
     });
 
     combinedText = combinedText.join(" ");
-    console.log(combinedText);
-    console.log(rawTxt);
-    console.log(html);
     this.props.setInput(combinedText, html);
   };
 
@@ -46,6 +43,22 @@ export class EditorComponent extends React.Component {
           editorClassName="demo-editor"
           onEditorStateChange={this.onEditorStateChange}
           onChange={this.currentInput}
+          toolbar={{
+            options: [
+              "inline",
+              "list",
+              "link",
+              "history",
+              "embedded",
+              "emoji",
+              "image"
+            ],
+            inline: {
+              options: ["bold", "italic", "underline", "strikethrough"]
+            },
+            link: { inDropdown: true },
+            history: { inDropdown: true }
+          }}
         />
         {/* <button onClick={this.currentInput}>submit</button> */}
       </div>
