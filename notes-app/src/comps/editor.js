@@ -2,22 +2,42 @@ import React from "react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
 import "../styles/react-draft-wysiwyg.css";
-import { convertFromRaw, convertToRaw } from "draft-js";
+import { convertToRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { stateToMarkdown } from "draft-js-export-markdown";
+import { stateFromHTML } from "draft-js-import-html";
 
 export class EditorComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty()
-    };
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.timeout();
   }
 
   onEditorStateChange: Function = editorState => {
     this.setState({
       editorState
     });
+  };
+
+  timeout = () => {
+    setTimeout(() => {
+      this.checkState();
+    }, 50);
+  };
+
+  checkState = props => {
+    if (this.props.content) {
+      let content = EditorState.createWithContent(
+        stateFromHTML(this.props.content)
+      );
+      this.setState({ editorState: content });
+    } else {
+      let content = EditorState.createEmpty();
+      this.setState({ editorState: content });
+    }
   };
 
   currentInput = () => {
@@ -38,6 +58,7 @@ export class EditorComponent extends React.Component {
     return (
       <div className="cont">
         <Editor
+          {...this.props}
           editorState={editorState}
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor"

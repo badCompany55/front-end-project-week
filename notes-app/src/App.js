@@ -78,7 +78,6 @@ class App extends Component {
         newHtmls.forEach(note => {
           newRaw.push(note);
         });
-        console.log(newRaw);
         this.setState({ notes: newRaw });
       })
       .catch(err => {
@@ -113,7 +112,6 @@ class App extends Component {
     newHtmls.forEach(note => {
       newRaw.push(note);
     });
-    console.log(newRaw);
     this.setState({ notes: newRaw, htmlNotes: newHtmls });
     newHtmls = JSON.stringify(newHtmls);
     this.local.setItem("notes", newHtmls);

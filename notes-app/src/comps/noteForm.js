@@ -49,10 +49,10 @@ class Form extends React.Component {
           title: this.state.title,
           textBody: this.state.html
         };
+
         axios
           .post("https://fe-notes.herokuapp.com/note/create", newNote)
           .then(res => {
-            console.log(res);
             newNote._id = res.data.success;
             htmlNewNote._id = res.data.success;
             this.props.updateState(newNote, htmlNewNote);
@@ -93,30 +93,12 @@ class Form extends React.Component {
             }
             return note;
           });
-          // if (state.htmlNotes.length > 0) {
-          //   state.htmlNotes.forEach(note => {
-          //     if (note._id === res.data._id) {
-          //       note = res.data;
-          //       note.textBody = this.state.html;
-          //       htmlNotes.push(note);
-          //     } else {
-          //       let newNote = res.data;
-          //       newNote.textBody = this.state.html;
-          //       htmlNotes.push(newNote);
-          //     }
-          //   });
-          // } else {
-          //   let newNote = res.data;
-          //   newNote.textBody = this.state.html;
-          //   htmlNotes.push(newNote);
-          // }
-          console.log(htmlNotes);
           this.props.editState(notes, htmlNotes);
         })
         .catch(err => {
           console.log(err);
         });
-      this.setState({ tags: [], title: "", textBody: "" });
+      // this.setState({ tags: [], title: "", textBody: "" });
     }
   };
 
@@ -145,18 +127,12 @@ class Form extends React.Component {
               />
             </div>
             <div className="contentCont">
-              {/* <label className="content" htmlFor="content"> */}
-              {/*   Content:{" "} */}
-              {/* </label> */}
-              <EditorComponent setInput={this.setInput} />
-              {/* <textarea */}
-              {/*   id="textBody" */}
-              {/*   name="content" */}
-              {/*   cols="30" */}
-              {/*   rows="20" */}
-              {/*   value={this.state.textBody} */}
-              {/*   onChange={this.capInput} */}
-              {/* /> */}
+              <EditorComponent
+                setInput={this.setInput}
+                {...this.props}
+                content={this.state.textBody}
+                // content="hello"
+              />
             </div>
             <div className="button">
               {this.props.location.pathname.includes("new") ? (
