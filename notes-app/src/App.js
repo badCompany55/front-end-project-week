@@ -13,6 +13,7 @@ import { EditorComponent } from "./comps/editor.js";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.local = window.localStorage;
     this.state = {
       notes: [],
       htmlNotes: [],
@@ -36,18 +37,14 @@ class App extends Component {
     //   });
     // this.timeout();
     // this.htmlFormat();
+    let html = JSON.parse(this.local.getItem("notes"));
+    // console.log(html);
+    this.setState({ htmlNotes: html });
     this.initialLoad();
   }
 
   refreshNotes = () => {
-    axios
-      .get("https://fe-notes.herokuapp.com/note/get/all")
-      .then(res => {
-        this.setState({ notes: res.data });
-      })
-      .catch(err => {
-        this.setState({ errorMsg: err });
-      });
+    this.initialLoad();
   };
 
   initialLoad = () => {
@@ -57,19 +54,32 @@ class App extends Component {
         // this.setState({ defaultNotes: res.data });
         const raw = res.data;
         const html = this.state.htmlNotes.slice();
-        let combinedCheck = [];
-        raw.forEach(note => {
-          if (html.length > 0) {
-            html.forEach(htmlNote => {
-              if (note._id === htmlNote._id) {
-                combinedCheck.push(htmlNote);
-              }
-            });
-          } else {
-            combinedCheck.push(note);
+        let htmlIds = html.map(note => {
+          return note._id;
+        });
+
+        let newHtmlIds = [];
+
+        let newRaw = raw.filter(note => {
+          if (htmlIds.includes(note._id)) {
+            newHtmlIds.push(note._id);
+          }
+          if (!htmlIds.includes(note._id)) {
+            return note;
           }
         });
-        this.setState({ notes: combinedCheck });
+
+        let newHtmls = html.filter(note => {
+          if (newHtmlIds.includes(note._id)) {
+            return note;
+          }
+        });
+
+        newHtmls.forEach(note => {
+          newRaw.push(note);
+        });
+        console.log(newRaw);
+        this.setState({ notes: newRaw });
       })
       .catch(err => {
         this.setState({ errorMsg: err });
@@ -79,31 +89,44 @@ class App extends Component {
   htmlFormatCheck = () => {
     const raw = this.state.notes.slice();
     const html = this.state.htmlNotes.slice();
-    let combinedCheck = [];
-    raw.forEach(note => {
-      if (html.length > 0) {
-        html.forEach(htmlNote => {
-          if (note._id === htmlNote._id) {
-            combinedCheck.push(htmlNote);
-          } else {
-            combinedCheck.push(note);
-          }
-        });
-      } else {
-        combinedCheck.push(note);
+    let htmlIds = html.map(note => {
+      return note._id;
+    });
+
+    let newHtmlIds = [];
+
+    let newRaw = raw.filter(note => {
+      if (htmlIds.includes(note._id)) {
+        newHtmlIds.push(note._id);
+      }
+      if (!htmlIds.includes(note._id)) {
+        return note;
       }
     });
-    console.log(combinedCheck);
-    this.setState({ notes: combinedCheck });
+
+    let newHtmls = html.filter(note => {
+      if (newHtmlIds.includes(note._id)) {
+        return note;
+      }
+    });
+
+    newHtmls.forEach(note => {
+      newRaw.push(note);
+    });
+    console.log(newRaw);
+    this.setState({ notes: newRaw, htmlNotes: newHtmls });
+    newHtmls = JSON.stringify(newHtmls);
+    this.local.setItem("notes", newHtmls);
   };
 
   updateState = (note, htmlNote) => {
-    let newNotes = { ...this.state };
-    newNotes.notes.push(note);
-    newNotes.htmlNotes.push(htmlNote);
+    let newNotes = this.state.notes.slice();
+    let newHtmlNotes = this.state.htmlNotes.slice();
+    newNotes.push(note);
+    newHtmlNotes.push(htmlNote);
     this.setState({
-      notes: newNotes.notes,
-      htmlNotes: newNotes.htmlNotes,
+      notes: newNotes,
+      htmlNotes: newHtmlNotes,
       errorMsg: null
     });
     this.htmlFormatCheck();
@@ -115,7 +138,8 @@ class App extends Component {
 
   editState = (notes, htmlNotes) => {
     this.setState({ notes: notes, htmlNotes: htmlNotes });
-    console.log(this.state.htmlNotes);
+    let localHtml = JSON.stringify(this.state.htmlNotes);
+    this.local.setItem("notes", localHtml);
     this.htmlFormatCheck();
   };
 

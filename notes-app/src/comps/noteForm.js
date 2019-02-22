@@ -86,24 +86,31 @@ class Form extends React.Component {
             }
             return note;
           });
-          let htmlNotes = [];
-          if (state.htmlNotes.length > 0) {
-            state.htmlNotes.forEach(note => {
-              if (note._id === res.data._id) {
-                note = res.data;
-                note.textBody = this.state.html;
-                htmlNotes.push(note);
-              } else {
-                let newNote = res.data;
-                newNote.textBody = this.state.html;
-                htmlNotes.push(newNote);
-              }
-            });
-          } else {
-            let newNote = res.data;
-            newNote.textBody = this.state.html;
-            htmlNotes.push(newNote);
-          }
+          let htmlNotes = state.notes.map(note => {
+            if (note._id === res.data._id) {
+              note = res.data;
+              note.textBody = this.state.html;
+            }
+            return note;
+          });
+          // if (state.htmlNotes.length > 0) {
+          //   state.htmlNotes.forEach(note => {
+          //     if (note._id === res.data._id) {
+          //       note = res.data;
+          //       note.textBody = this.state.html;
+          //       htmlNotes.push(note);
+          //     } else {
+          //       let newNote = res.data;
+          //       newNote.textBody = this.state.html;
+          //       htmlNotes.push(newNote);
+          //     }
+          //   });
+          // } else {
+          //   let newNote = res.data;
+          //   newNote.textBody = this.state.html;
+          //   htmlNotes.push(newNote);
+          // }
+          console.log(htmlNotes);
           this.props.editState(notes, htmlNotes);
         })
         .catch(err => {

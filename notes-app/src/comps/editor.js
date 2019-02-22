@@ -45,6 +45,7 @@ export class EditorComponent extends React.Component {
           onChange={this.currentInput}
           toolbar={{
             options: [
+              "blockType",
               "inline",
               "list",
               "link",
@@ -56,6 +57,8 @@ export class EditorComponent extends React.Component {
             inline: {
               options: ["bold", "italic", "underline", "strikethrough"]
             },
+
+            list: { options: ["unordered", "ordered"] },
             link: { inDropdown: true },
             history: { inDropdown: true }
           }}
