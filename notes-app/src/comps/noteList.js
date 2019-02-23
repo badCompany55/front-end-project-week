@@ -1,7 +1,7 @@
 import React from "react";
 import Note from "./note.js";
 import DeleteConf from "./deleteConf.js";
-import { TimelineLite, TweenLite, TweenMax, CSSPlugin } from "gsap/all";
+import { TimelineLite } from "gsap/all";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 class NoteList extends React.Component {
@@ -50,6 +50,7 @@ class NoteList extends React.Component {
     });
 
     this.props.sortNotes(theFinal);
+    this.tl.fromTo(this.notes, 0.75, { opacity: 0 }, { opacity: 1 });
   };
 
   sortDescend = () => {
@@ -82,12 +83,13 @@ class NoteList extends React.Component {
     });
 
     let theOtherFinal = theFinal.reverse();
-
     this.props.sortNotes(theOtherFinal);
+    this.tl.fromTo(this.notes, 0.75, { opacity: 0 }, { opacity: 1 });
   };
 
   theDefault = () => {
     this.props.refresh();
+    this.tl.fromTo(this.notes, 0.75, { opacity: 0 }, { opacity: 1 });
   };
 
   onDragEnd = result => {
