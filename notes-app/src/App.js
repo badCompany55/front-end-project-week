@@ -39,7 +39,7 @@ class App extends Component {
     // this.htmlFormat();
     let html = JSON.parse(this.local.getItem("notes"));
     // console.log(html);
-    this.setState({ htmlNotes: html });
+    // this.setState({ htmlNotes: html });
     this.initialLoad();
   }
 
