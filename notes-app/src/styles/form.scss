@@ -1,0 +1,102 @@
+.formCont {
+	position: fixed;
+	top: 27%;
+	display: flex;
+	width: 87%;
+	max-width: 990px;
+
+	.form {
+		width: 100%;	
+		margin-left: 180px;
+		padding-right: 30px;
+		background-color: $dPurple;
+		max-width: 778px;
+
+		.closeCont {
+			text-align: right;
+			
+			.fa-window-close {
+				padding: 10px;
+				padding-right: 0px;
+				font-size: 1.3rem;
+				color: $dGreen;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+
+		.noteForm {
+			display: flex;
+			flex-wrap:  wrap;
+			text-align: left;
+			.titleCont {
+				width: 100%;
+				justify-content: space-between;
+				padding-left: 56px;
+				padding-bottom: 20px;
+				
+				.title {
+					width: 30%;
+					color: white;
+					padding-right: 15px;
+				}
+
+				#title {
+					width: 50%;
+				}
+				
+			}
+
+			.contentCont {
+				width: 100%;
+				justify-content: space-around;
+				padding-left: 30px;
+
+				.content {
+					width: 30%;
+					color: white;
+					padding-right: 15px;
+					vertical-align: top;
+				}
+
+				#textBody {
+					width: 80%;
+				}
+
+
+				.rdw-editor-main {
+					background-color: $white;
+					height: 300px;
+				}
+			}
+
+			.button {
+				width: 100%;
+				display: flex;
+				padding-left: 30px;
+				justify-content: center;
+
+				button {
+					background-color: $pink;
+					border: 2px solid $lPurple;
+					width: 100%;
+					padding: 15px;
+					margin-top: 15px;
+					margin-bottom: 15px;
+					font-size: 1.5rem;
+					color: $lGreen;
+
+					&:hover {
+						background-color: $lGreen;
+						color: $pink;
+						cursor: pointer;
+					}
+				}
+			}	
+			
+		}
+	}		
+
+}
